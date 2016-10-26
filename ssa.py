@@ -1,4 +1,9 @@
+import os
+os.chdir('/Users/stephenlenzi/Desktop/') # specify the current directory (i.e. where to save)
+
 import numpy as np
+import scipy
+import scipy.io.wavfile
 
 ## Wave-generating function (with tapering)
 # f: frequency of wave
@@ -15,10 +20,10 @@ def mywave(f, fs, a, stim_duration):
 
 def ssa_tones(f, f_difference):
     assert f-f_difference>0
-    tone1 = mywave(f+f_difference,44100,2,0.1*44100)
+    tone1 = mywave(f,44100,2,0.1*44100)
     tone2 = mywave(f-f_difference,44100,2,0.1*44100)
     return tone1, tone2
-    
+
 def randomised_trials(n_tone1, n_tone2):
     """
     randomised binary trials
@@ -33,7 +38,7 @@ def randomised_trials(n_tone1, n_tone2):
     # reshuffle until tone 1 never occurs twice in a row
 
     return trials_shuffled
-
+   
 def create_waveform_trials(trials_shuffled, tone1, tone2, ISI_len):
     """
     creates final waveforms
@@ -47,7 +52,7 @@ def create_waveform_trials(trials_shuffled, tone1, tone2, ISI_len):
         if trial == 0:
             waveforms = np.concatenate([waveforms, tone2, ISI])
     return waveforms
-   
+
 def replace_doubles(array):
     """
     find two neighbouring 1s and move the second one randomly
@@ -68,4 +73,29 @@ def replace_doubles(array):
     replace_doubles(array)
     
     return array
+
+n_oddball_tone = 10 # number of the oddball tone
+n_adapting_tone = 90 # number of the adapting tone
+oddball_freq = 500
+f_difference = 40
+
+tone1,tone2 = ssa_tones(oddball_freq,f_difference) #tone 1 is oddball
+ISI=44100*0.5
+
+
+trials_shuffled = randomised_trials(n_oddball_tone, n_adapting_tone)
+trials_shuffled = replace_doubles(trials_shuffled)
+waveforms = create_waveform_trials(trials_shuffled, tone1, tone2, ISI)
+waveforms_reversed = create_waveform_trials(trials_shuffled, tone2, tone1, ISI)
+
+
+
+# save variables to current directory
+np.save('trial_order', trials_shuffled)
+np.save('waveforms', waveforms)
+np.save('waveforms_reversed', waveforms_reversed)
+
+## Save as .wav file
+scipy.io.wavfile.write('/Users/stephenlenzi/Desktop/sound.wav', 44100, np.int16(waveforms)*32767)
+
 
