@@ -75,13 +75,13 @@ def replace_doubles(array):
     
     return array
 
-n_oddball_tone = 10 # number of total repetitions the oddball tone
-n_adapting_tone = 90 # number of total repetitions of the adapting tone
-oddball_freq = 500 # frequency of the oddball stimulus
-f_difference = 40 # frequency difference of the non-oddball stimulus (lower)
-
-tone1, tone2 = ssa_tones(oddball_freq, f_difference) #tone 1 is oddball
+n_oddball_tone = 10 # number of the oddball tone
+n_adapting_tone = 90 # number of the adapting tone
+oddball_freq = 500
+f_difference = 40
 ISI=44100*0.5
+
+tone1,tone2 = ssa_tones(oddball_freq,f_difference) #tone 1 is oddball
 
 
 trials_shuffled = randomised_trials(n_oddball_tone, n_adapting_tone)
@@ -89,13 +89,17 @@ trials_shuffled = replace_doubles(trials_shuffled)
 waveforms = create_waveform_trials(trials_shuffled, tone1, tone2, ISI)
 waveforms_reversed = create_waveform_trials(trials_shuffled, tone2, tone1, ISI)
 
-
+trigger_output = create_waveform_trials(trials_shuffled, np.ones(len(tone1)), np.ones(len(tone2))*2, ISI)
 
 # save variables to current directory
 np.save('trial_order', trials_shuffled)
 np.save('waveforms', waveforms)
 np.save('waveforms_reversed', waveforms_reversed)
+np.save('trigger_output', trigger_output)
 
+
+stim_trig_array = np.vstack([waveforms,trigger_output])
+np.save('stim_trig_array',stim_trig_array.T)
 ## Save as .wav file
 scipy.io.wavfile.write('/Users/stephenlenzi/Desktop/sound.wav', 44100, np.int16(waveforms)*32767)
 
