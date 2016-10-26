@@ -5,13 +5,16 @@ import numpy as np
 import scipy
 import scipy.io.wavfile
 
-## Wave-generating function (with tapering)
-# f: frequency of wave
-# fs: sampling frequency
-# a: amplitude of wave
-# stim_duration: duration of the wave, in samples
-
 def mywave(f, fs, a, stim_duration):
+    
+    """
+    Wave-generating function (with tapering)
+    ::param f: frequency of wave
+    ::param fs: sampling frequency
+    ::param a: amplitude of wave
+    ::param stim_duration: duration of the wave, in samples
+    """
+    
     tapering = .1
     n = np.sin(np.linspace(0,0.5*np.pi,np.floor(stim_duration*tapering)))
     m = np.concatenate([n,np.ones((1-tapering*2)*stim_duration),n[::-1]])
@@ -27,16 +30,14 @@ def ssa_tones(f, f_difference):
 def randomised_trials(n_tone1, n_tone2):
     """
     randomised binary trials
-    param: n_f1: number of first trial type
-    param: n_f2: number of second trial type
-    return: trials_shuffled: array of shuffled trials
+    ::param n_f1: number of first trial type
+    ::param n_f2: number of second trial type
+    ::return trials_shuffled: array of shuffled trials
     """
     
     trials_unshuffled = np.concatenate([np.ones(n_tone1),np.zeros(n_tone2)])
     trials_shuffled = np.random.choice(trials_unshuffled, size=len(trials_unshuffled),replace=False)
-    
-    # reshuffle until tone 1 never occurs twice in a row
-
+   
     return trials_shuffled
    
 def create_waveform_trials(trials_shuffled, tone1, tone2, ISI_len):
