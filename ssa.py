@@ -74,12 +74,12 @@ def replace_doubles(array):
     
     return array
 
-n_oddball_tone = 10 # number of the oddball tone
-n_adapting_tone = 90 # number of the adapting tone
-oddball_freq = 500
-f_difference = 40
+n_oddball_tone = 10 # number of total repetitions the oddball tone
+n_adapting_tone = 90 # number of total repetitions of the adapting tone
+oddball_freq = 500 # frequency of the oddball stimulus
+f_difference = 40 # frequency difference of the non-oddball stimulus (lower)
 
-tone1,tone2 = ssa_tones(oddball_freq,f_difference) #tone 1 is oddball
+tone1, tone2 = ssa_tones(oddball_freq, f_difference) #tone 1 is oddball
 ISI=44100*0.5
 
 
