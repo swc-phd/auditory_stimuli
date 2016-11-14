@@ -1,0 +1,136 @@
+* {
+     font-family: arial;
+    }
+
+ul.horizontal {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: fixed;
+    width: 100%;
+	z-index : 1000;
+}
+
+ul.horizontal.li {
+    float: left;
+    display: block;
+	z-index : 1000;
+}
+
+li.hor a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li.hor a:hover:not(.active) {
+    background-color: #111;
+}
+
+.active {
+    background-color: #045197;
+    color: white;
+}
+
+ul.vertical {
+    list-style-type: none;
+    margin-top: 60px;
+    padding: 0;
+    width: 15%;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+li.ver a {
+    display: block;
+    color: #000;
+    margin-top: 5%;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+
+li.ver a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+
+.active {
+    background-color: #045197;
+    color: white;
+}
+
+div.main {
+    padding-top: 30px;
+    display: block;
+    margin-left: 20%;
+    margin-right:auto;
+    width: 80%;
+}
+
+
+img.centred {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.figbottom{
+    display:block;
+    position:relative;
+    top:50px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+img.ontop {
+    position:relative;
+    top: 30px;
+}
+
+p.main {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.authorbox {
+    background-color: #E8E8E8;
+    color: #555;
+    padding: 10px 12px;
+    min-height: 80px;
+    overflow: hidden;
+    width: 80%;
+    clear: both;
+    margin: 20px 0 10px;
+}
+.authorbox h4{
+    font-size: 20px;
+    margin: 0 0 2px 0;
+}
+.authorbox .authorimg {
+    display: block;
+    float: left;
+    width: 100px;
+    margin-top: 10px;
+}
+ 
+.authorbox .authorimg&gt;img {
+    width: 100px;
+    max-width: 100% !important;
+    border: 0;
+    text-shadow: none;
+    padding: 0;
+}
+.authorbox .wraptext {
+    margin-left: 165px;
+    line-height: 1.5;
+}
